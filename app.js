@@ -33,7 +33,7 @@ var store = {
 	port: 3306,
 	user: 'root',
 	password: '123*Ssk*06',
-	database: 'node-app',
+	database: 'node',
 	schema: {
 		tableName: 'custom_sessions_table_name',
 		columnNames: {
