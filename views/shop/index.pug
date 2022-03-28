@@ -125,5 +125,30 @@ block content
                             td #{sonuc3}
                         else       
                             td ***
-                
-
+    .row
+        .col-md-12
+            h5.offset-sm-5.mt-5 RAPOR
+            table.table.table-bordered
+            
+                .br
+                if celikhane !== null && haddehane !== null
+                    - sonuc1 = celikhane.tbara-(haddehane.hadde - haddehane.vpsa)
+                    #{dun} #{ayY} (08:00) - #{gun} #{ayT} (08:00) arası kirli bara (eaf+lf) tüketim #{celikhane.kbara} kwh
+                    .br
+                    #{dun} #{ayY} (08:00) - #{gun} #{ayT} (08:00) arası çelikhane+oksijen temiz bara tüketim #{sonuc1} kwh
+                else 
+                    td ***         
+                    td ***
+                .br
+                if haddehane !== null
+                    - sonuc2 = haddehane.hadde -  haddehane.vpsa     
+                    #{dun} #{ayY} (08:00) - #{gun} #{ayT} (08:00) arası haddehane tüketim #{sonuc2} kwh
+                else
+                    td ***
+                .br
+                if aba2 !== null && aba2Dun !== null
+                    - sonuc3 = (aba2.hadde - aba2Dun.hadde) * 9450
+                    #{dun} #{ayY} (08:00) - #{gun} #{ayT} (08:00) arası ABA-2 tüketim #{sonuc3} kwh
+                else       
+                    td ***
+                .br
