@@ -5,7 +5,7 @@ const Haddehane = require('../models/haddehane');
 const Aba2 = require('../models/aba2');
 const sgMail = require('@sendgrid/mail');
 
-sgMail.setApiKey('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');
+sgMail.setApiKey('apkey');
 
 exports.getIndex = (req, res, next) => {
     var today = new Date();
