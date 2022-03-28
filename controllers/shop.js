@@ -8,11 +8,24 @@ const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey('apkey');
 
 exports.getIndex = (req, res, next) => {
-    var today = new Date();
     var _celikhane;
     var _haddehane;
     var _aba2;
     var _aba2Dun;
+    
+    var today = new Date();
+    var yesterday = new Date();
+    var _today =  today.toISOString().substring(0, 10);
+    var gun = today.getDate();
+    yesterday.setDate(yesterday.getDate() - 1);
+    dun = yesterday.getDate();
+    var haddehaneSon;
+    var tbaraSon;
+    var aba2Son;
+
+    var aylar = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"];
+    ayT = aylar[today.getMonth()]
+    ayY = aylar[yesterday.getMonth()]
 
     Aba2.findOne(
         {
@@ -47,6 +60,15 @@ exports.getIndex = (req, res, next) => {
                     where: {tarih : today.toISOString().substring(0, 10)}, //tarih kontrolü yapılacak
                 })
                 .then(haddehane => {
+                
+                    haddehaneSon = _haddehane.hadde - _haddehane.vpsa;
+                    tbaraSon = _celikhane.tbara - _haddehane.hadde;
+                    _aba2.hadde = _aba2.hadde - _aba2Dun.hadde;
+                    aba2Son = Math.round(_aba2.hadde* 9450);
+                    console.log(_haddehane.hadde);
+                    console.log(_celikhane.tbara);
+                    console.log(_aba2.hadde);
+                
                     _haddehane = haddehane;
                     console.log(_celikhane);
                     console.log(_haddehane);
@@ -56,6 +78,11 @@ exports.getIndex = (req, res, next) => {
                         haddehane: haddehane,
                         aba2: _aba2,
                         aba2Dun: _aba2Dun,
+                        
+                        haddehaneSon: haddehaneSon,
+                        tbaraSon: tbaraSon;
+                        aba2Son: aba2Son;
+                        
                         tarih: today.toISOString().substring(0, 10),
                         path: '/',
                         isAuthenticated: req.session.isAuthenticated,
