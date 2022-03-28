@@ -1,0 +1,129 @@
+extends ../layouts/main-layout.pug
+
+include ../mixins/createProduct.pug
+
+block content
+
+    .row
+        .col-md-4
+            //include ../includes/menu.pug
+            h5.offset-sm-4 ÇELİKHANE
+            .card
+                .card-body
+                    form(action="/" method="POST")
+                        .form-group.row
+                            label(for="kirlibara").col-sm-12.col-form-label Kirli Bara
+                            .col-sm-12.pr-0
+                                input.form-control#name(type="text" name="kbara" required="required") 
+
+                        .form-group.row
+                            label(for="temizbara").col-sm-12.col-form-label Temiz Bara
+                            .col-sm-12.pr-0
+                                input.form-control#password(type="text" name="tbara" required="required")
+                                
+                        .form-group.row
+                            .col-sm-5.offset-sm-1
+                                input(type="submit" value="Kaydet").btn.btn-primary 
+        .col-md-4
+            h5.offset-sm-4 HADDEHANE
+            .card
+                .card-body
+                    form(action="/" method="POST")
+                        .form-group.row
+                            label(for="hadde").col-sm-12.col-form-label HADDE
+                            .col-sm-12.pr-0
+                                input.form-control#name(type="text" name="hadde" required="required")   
+
+                        .form-group.row
+                            label(for="vpsa").col-sm-12.col-form-label VPSA2_3
+                            .col-sm-12.pr-0
+                                input.form-control#password(type="text" name="vpsa" required="required")  
+                                
+                        .form-group.row
+                            .col-sm-5.offset-sm-1
+                                input(type="submit" value="Kaydet").btn.btn-primary 
+        .col-md-4
+            h5.offset-sm-4 ABA2
+            .card
+                .card-body
+                    form(action="/" method="POST")
+                        .form-group.row
+                            label(for="aba2").col-sm-12.col-form-label ABA2
+                            .col-sm-12.pr-0
+                                if aba2 == null
+                                    input.form-control#name(type="text" name="aba2" disabled ) 
+                                else       
+                                    input.form-control#name(type="text" name="aba2" disabled value=`${aba2.hadde}`) 
+                                
+                                
+                        .form-group.row
+                            .col-sm-5.offset-sm-1
+                                input(type="submit" value="Kaydet" disabled).btn.btn-primary  
+    //if celikhane == null    
+    .row
+        .col-md-12
+            h5.offset-sm-5.mt-5 Girilen ve Alınan Değerler
+            table.table.table-bordered
+                thead
+                    tr
+                        th Tarih
+                        th Kirli Bara
+                        th Temiz Bara
+                        th Haddehane
+                        th VPSA
+                        th ABA2
+                tbody
+                    tr  
+                        td #{tarih}
+                        if celikhane == null
+                            td ***         
+                            td ***
+                        else 
+                            td #{celikhane.kbara}
+                            td #{celikhane.tbara}
+                        if haddehane == null
+                            td ***         
+                            td ***
+                        else       
+                            td #{haddehane.hadde}
+                            td #{haddehane.vpsa}
+                        if aba2 == null
+                            td ***
+                        else       
+                            td #{aba2.hadde}
+    .row
+        .col-md-12
+            h5.offset-sm-5.mt-5 RAPOR
+            table.table.table-bordered
+                thead
+                    tr
+                        th Tarih
+                        th Kirli Bara
+                        th Temiz Bara
+                        th Haddehane
+                        th VPSA
+                        th ABA2
+                tbody
+                    tr  
+                        td #{tarih}
+                        if celikhane !== null && haddehane !== null
+                            - sonuc1 = celikhane.tbara-(haddehane.hadde - haddehane.vpsa)
+                            td #{celikhane.kbara}
+                            td #{sonuc1}
+                        else 
+                            td ***         
+                            td ***
+                        if haddehane !== null
+                            - sonuc2 = haddehane.hadde -  haddehane.vpsa     
+                            td #{sonuc2}
+                            td #{haddehane.vpsa}
+                        else
+                            td ***         
+                            td ***
+                        if aba2 !== null && aba2Dun !== null
+                            - sonuc3 = (aba2.hadde - aba2Dun.hadde) * 9450
+                            td #{sonuc3}
+                        else       
+                            td ***
+                
+
